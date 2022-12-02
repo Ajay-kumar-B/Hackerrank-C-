@@ -1,0 +1,63 @@
+#include<iostream>
+#include<deque>
+#include<vector>
+
+using namespace std;
+
+vector<int> MaxOfSubarrat(int arr[],int N,int k)
+{
+    vector<int> v;
+    deque<int> q;
+   int i,j;
+   i=0;j=0;
+   while(j<N)
+   {
+       while(q.size()>0&&arr[j]>q.back())
+       {
+           q.pop_back();
+       }
+        q.push_back(arr[j]);
+        if(j-i+1<k)
+        {
+            j++;
+        }
+        else if(j-i+1==k)
+        {
+            v.push_back(q.front());
+            if(arr[i]==q.front())
+            {
+                q.pop_front();
+            }
+            i++;
+            j++;
+        }
+   }
+    return v;
+}
+void disp(vector<int> v)
+{
+    for(int i=0;i<v.size();i++)
+    {
+        cout<<v[i]<<" ";
+    }
+    cout<<endl;
+}
+int main()
+{
+    int testcase;
+    cin>>testcase;
+    while(testcase--)
+    {
+    vector<int> ans;
+    int size,K;
+    cin>>size>>K;
+    int arr[size];
+    for(int i=0;i<size;i++)
+    {
+        cin>>arr[i];
+    }
+    ans=MaxOfSubarrat(arr,size,K);
+    disp(ans);
+    }
+    return 0;
+}
